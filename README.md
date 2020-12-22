@@ -3,16 +3,15 @@
 This service is for serving product information for myRetail product API
 
 ### Technology Stack
-Java 11, Spring boot, Cassandra, Gradle, Docker, Jacoco, Checkstyle, Swagger2
+Java 11, Spring boot, Cassandra, Gradle, Jacoco, Checkstyle, Swagger2
 
 ### Getting Started
-Follow the instructions to run the application on local machine with Cassandra on Docker
+Follow the instructions to run the application on local machine with Cassandra
 
-### Install docker:
+### Install Cassandra:
 
 ```
-For mac : https://docs.docker.com/docker-for-mac/install/
-For Windows: https://docs.docker.com/docker-for-windows/install/
+https://cassandra.apache.org/download/
 ```
 
 ### Install Gradle:
@@ -31,15 +30,28 @@ https://openjdk.java.net/install/
 git clone https://github.com/dmsdayanithi/myRetail-product-api.git
 ```
 
-### Run Cassandra Docker Instance 
+### Run Cassandra Instance 
 
 ```
-cd my-retail-product-api
-cd docker
-docker-compose build
-docker-compose up
+cd apache-cassandra-3.11.4\bin
+cassandra
 ```
 
+### Loading Test Data
+```
+CREATE KEYSPACE IF NOT EXISTS my_retail WITH REPLICATION = { 'class' : 'org.apache.cassandra.locator.SimpleStrategy','replication_factor': '1'};
+
+CREATE TABLE IF NOT EXISTS my_retail.product_detail  (
+    id        int,
+    current_price text,
+    PRIMARY KEY (id)
+);
+INSERT INTO my_retail.product_detail (id, current_price) VALUES (13860428, '{\"value\": 14.49,\"currency_code\":\"USD\"}');
+INSERT INTO my_retail.product_detail (id, current_price) VALUES (16483589, '{\"value\": 15.49,\"currency_code\":\"USD\"}');
+INSERT INTO my_retail.product_detail (id, current_price) VALUES (16696652, '{\"value\": 16.49,\"currency_code\":\"USD\"}');
+INSERT INTO my_retail.product_detail (id, current_price) VALUES (16752456, '{\"value\": 10.49,\"currency_code\":\"USD\"}');
+INSERT INTO my_retail.product_detail (id, current_price) VALUES (15643793, '{\"value\": 3.49,\"currency_code\":\"USD\"}');
+```
 
 ### Build and Run:
 Switch to application(repo) root directory
