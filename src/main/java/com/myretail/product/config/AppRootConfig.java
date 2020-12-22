@@ -14,8 +14,15 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.concurrent.Executor;
 
+/**
+ * This class defines the bean configurations required for the application.
+ *
+ * @author Dayanithi Devarajan
+ */
 @Configuration
 public class AppRootConfig {
+
+	private static final String REDSKY_THREAD = "RedskyThread-";
 
 	@Value("${rest.template.connection.timeout.ms}")
 	private Integer connectionTimeout;
@@ -49,7 +56,7 @@ public class AppRootConfig {
 		executor.setCorePoolSize(2);
 		executor.setMaxPoolSize(2);
 		executor.setQueueCapacity(500);
-		executor.setThreadNamePrefix("RedskyThread-");
+		executor.setThreadNamePrefix(REDSKY_THREAD);
 		executor.initialize();
 		return executor;
 	}

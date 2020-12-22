@@ -10,7 +10,7 @@ import com.myretail.product.model.ProductDetailsRequest;
 public class ProductDetailsConstraintValidator
 		implements ConstraintValidator<ProductDetailsConstraint, ProductDetailsRequest> {
 	@Override
-	public void initialize(ProductDetailsConstraint constraintAnnotation) {
+	public void initialize(final ProductDetailsConstraint constraintAnnotation) {
 	}
 
 	@Override

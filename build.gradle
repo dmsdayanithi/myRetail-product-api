@@ -3,6 +3,8 @@ plugins {
     id 'org.springframework.boot' version '2.2.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
+    id 'jacoco'
+    id 'checkstyle'
 }
 
 group = 'com.myretail'
@@ -19,6 +21,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-cassandra'
     implementation 'org.apache.httpcomponents:httpclient:4.3.6'
     
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.2.6.RELEASE'
     compile group: 'org.springframework.data', name: 'spring-data-cassandra', version: '2.2.3.RELEASE'
     compile group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
@@ -31,6 +34,44 @@ dependencies {
     testImplementation('org.junit.platform:junit-platform-launcher:1.5.2')
 }
 
+
+jacoco {
+    toolVersion = "0.8.6"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    '**/model/**',
+                    '**/config/**',
+                    '**/repository/**',
+                    '**/actuator/**',
+                    '**/exception/**',
+                    '**/service/**'
+            ])
+        })
+    }
+    doLast {
+        println "file://$buildDir/jacocoHtml/index.html"
+    }
+}
+
+checkstyle {
+  project.ext.checkstyleVersion = '8.21'
+  configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+}
+checkstyleMain {
+    source ='src/main/java'
+}
+
 test {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
 }

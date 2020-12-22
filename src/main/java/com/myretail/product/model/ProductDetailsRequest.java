@@ -7,6 +7,11 @@ import com.myretail.product.validation.ProductDetailsConstraint;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+/**
+ * This class is used to as RequestBody for updating the Product Details.
+ *
+ * @author Dayanithi Devarajan
+ */
 @ProductDetailsConstraint
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,13 +32,11 @@ public class ProductDetailsRequest {
 
 	@JsonGetter("current_price")
 	public ProductPrice getProductPrice() {
-
 		return productPrice;
 	}
 
 	@JsonSetter("current_price")
 	public void setProductPrice(final ProductPrice productPrice) {
-
 		this.productPrice = productPrice;
 	}
 }

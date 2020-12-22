@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 		@PropertySource("classpath:application.properties") })
 public class MyRetailProductApiApplication {
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SpringApplication.run(MyRetailProductApiApplication.class, args);
 	}
 }

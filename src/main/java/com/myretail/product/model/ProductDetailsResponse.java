@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+/**
+ * This domain represents the final response of product details.
+ *
+ * @author Dayanithi Devarajan
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDetailsResponse {

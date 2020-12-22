@@ -3,6 +3,11 @@ package com.myretail.product.model;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
+/**
+ * This class defines the item details on Product.
+ *
+ * @author Dayanithi Devarajan
+ */
 public class Item {
 
 	private ProductDescription productDescription;

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+        "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+        "http://checkstyle.sourceforge.net/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+    <!--  Temporarily ignore Javadoc errors until I have time to fix them  -->
+    <suppress files=".*[\\/]src[\\/].*.*" checks="Javadoc"/>
+    
+    <!--  Permanently suppress these checks in test classes  -->
+    <suppress files=".*[\\/]src[\\/].*[Tt]est[\\/].*" checks="JavadocMethod"/>
+    <suppress files=".*[\\/]src[\\/].*[Tt]est[\\/].*" checks="LineLength"/>
+</suppressions>

@@ -1,6 +1,8 @@
 package myretail.product;
 
 import org.junit.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -24,6 +26,7 @@ import com.myretail.product.service.ProductDetailsService;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = MyRetailProductApiApplication.class)
 @WebMvcTest(value = ProductDetailsController.class)
+@Execution(ExecutionMode.CONCURRENT)
 public class ProductDetailsControllerTest {
 
 	@Autowired

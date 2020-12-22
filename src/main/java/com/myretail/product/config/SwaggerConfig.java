@@ -14,13 +14,18 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * This configuration class is used to enable swagger2 documentation.
+ *
+ * @author Dayanithi Devarajan
+ */
 @Component
 @EnableSwagger2
 @Profile({ "!prod" })
 public class SwaggerConfig {
 
 	@Value("${application.version}")
-	String version;
+	private String version;
 
 	@Bean
 	public Docket api() {

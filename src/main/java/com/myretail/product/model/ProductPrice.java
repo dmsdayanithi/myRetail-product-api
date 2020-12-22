@@ -8,6 +8,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * This class represents the price of a product.
+ *
+ * @author Dayanithi Devarajan
+ */
 @Getter
 @Setter
 @AllArgsConstructor
