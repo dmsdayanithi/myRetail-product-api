@@ -7,9 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -26,6 +29,9 @@ public class RedskyClient {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RedskyClient.class);
 
 	@Autowired
+	private CircuitBreakerFactory circuitBreakerFactory;
+
+	@Autowired
 	private RestTemplate restTemplate;
 
 	@Value("${product.endpoint}")
@@ -35,13 +41,14 @@ public class RedskyClient {
 	private String host;
 
 	/**
-     * This method will retrieve product data from product service and doesn't throw any exception.
-     *
-     * @param id This is Integer type product id.
-     * @return CompletableFuture Future object holding the ProductDetails response from External Service.
-     * <b>Note:</b> null value will be returned in case if the product id not found
-     * in product service.
-     */
+	 * This method will retrieve product data from product service and doesn't throw
+	 * any exception.
+	 *
+	 * @param id This is Integer type product id.
+	 * @return CompletableFuture Future object holding the ProductDetails response
+	 *         from External Service. <b>Note:</b> null value will be returned in
+	 *         case if the product id not found in product service.
+	 */
 	public CompletableFuture<ResponseEntity<RedskyProductResponse>> getProductById(final Integer id) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
@@ -51,7 +58,10 @@ public class RedskyClient {
 		final String url = String.format(host + endpoint, id);
 		final long startTime = System.currentTimeMillis();
 		try {
-			responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, RedskyProductResponse.class);
+			CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitbreaker");
+			responseEntity = circuitBreaker.run(
+					() -> restTemplate.exchange(url, HttpMethod.GET, entity, RedskyProductResponse.class),
+					throwable -> returnDefaultValue());
 
 		} catch (HttpClientErrorException ex) {
 			LOGGER.error("Product service returned client error,id={}, status={}", id, ex.getStatusCode());
@@ -65,5 +75,11 @@ public class RedskyClient {
 		}
 
 		return CompletableFuture.completedFuture(responseEntity);
+	}
+
+	private ResponseEntity<RedskyProductResponse> returnDefaultValue() {
+		RedskyProductResponse response = new RedskyProductResponse();
+		response.setProduct(null);
+		return new ResponseEntity<RedskyProductResponse>(response, HttpStatus.NOT_FOUND);
 	}
 }

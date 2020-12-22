@@ -21,14 +21,15 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-cassandra'
     implementation 'org.apache.httpcomponents:httpclient:4.3.6'
     
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-circuitbreaker-resilience4j', version: '1.0.0.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.2.6.RELEASE'
     compile group: 'org.springframework.data', name: 'spring-data-cassandra', version: '2.2.3.RELEASE'
     compile group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
-
-	compileOnly 'org.projectlombok:lombok:1.18.8'
-	annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
 	
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation('org.junit.platform:junit-platform-launcher:1.5.2')
