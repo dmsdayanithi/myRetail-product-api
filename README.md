@@ -78,7 +78,8 @@ curl --location --request GET 'http://localhost:8080/v1/products/13860420' \
 * [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.4.1/gradle-plugin/reference/html/)
 * [Official Gradle documentation](https://docs.gradle.org)
 * [Cassandra](http://cassandra.apache.org/doc/latest/architecture/index.html)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.4.1/gradle-plugin/reference/html/#build-image)
+* [Checkstyle](https://checkstyle.sourceforge.io/)
+* [Jacoco](https://www.jacoco.org/jacoco/trunk/index.html)
 
 #### Author: Dayanithi Devarajan
         
