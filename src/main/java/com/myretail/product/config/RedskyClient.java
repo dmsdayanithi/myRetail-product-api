@@ -15,6 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -49,6 +50,7 @@ public class RedskyClient {
 	 *         from External Service. <b>Note:</b> null value will be returned in
 	 *         case if the product id not found in product service.
 	 */
+	@Async
 	public CompletableFuture<ResponseEntity<RedskyProductResponse>> getProductById(final Integer id) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
@@ -73,7 +75,6 @@ public class RedskyClient {
 			long duration = System.currentTimeMillis() - startTime;
 			LOGGER.info("External service call completed; duration={}", duration);
 		}
-
 		return CompletableFuture.completedFuture(responseEntity);
 	}
 
